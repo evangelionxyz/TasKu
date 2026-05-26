@@ -1,0 +1,22 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "taskupro",
+                    "appId": "1:526594427124:android:b168a89876583ecdb536a1",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "taskupro",
+                    "configurations": {
+                        "android": "1:526594427124:android:b168a89876583ecdb536a1",
+                        "ios": "1:526594427124:ios:82d672775e77a71eb536a1"
+                    }
+                }
+            }
+        }
+    }
+}
