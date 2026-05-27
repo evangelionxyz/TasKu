@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:taskuapp/navbar/bottom_nav.dart';
+import 'package:taskuapp/globals/globals.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -9,8 +10,19 @@ class AuthPage extends StatefulWidget {
   State<AuthPage> createState() => _AuthPageState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AuthPageState extends State<AuthPage>
+    with SingleTickerProviderStateMixin {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   Future<void> _signInWithGoogle() async {
     try {
@@ -61,105 +73,104 @@ class _AuthPageState extends State<AuthPage> {
         return Scaffold(
           body: Container(
             width: double.infinity,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFFF8FAFC), Color(0xFFE2E8F0)],
-              ),
-            ),
-            child: Center(
-              child: Card(
-                elevation: 10,
-                margin: const EdgeInsets.symmetric(horizontal: 32),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(28),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const _AppTitle(),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Sign in to continue',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Use your Google account to access your TasKu profile.',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium?.copyWith(color: Colors.black54),
-                      ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          onPressed: _signInWithGoogle,
-                          icon: Container(
-                            width: 22,
-                            height: 22,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(11),
-                            ),
-                            alignment: Alignment.center,
-                            child: const Image(
-                              image: AssetImage("assets/google.png"),
-                            ),
-                          ),
-                          label: const Text('Continue with Google'),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+            height: double.infinity,
+            decoration: const BoxDecoration(color: AppColors.light),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(28, 28, 64, 28),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const AppTitle(),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Sign in to continue',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontFamily: "Roxborough",
+                      fontWeight: FontWeight(700),
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Use your Google account\nto access your TasKu profile.',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: "Roxborough",
+                      fontWeight: FontWeight(700),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      _signInWithGoogle();
+                    },
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 64.0,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Transform.translate(
+                            key: UniqueKey(),
+                            offset: const Offset(8, 8),
+                            child: Container(
+                              color: AppColors.dark,
+                              width: double.infinity,
+                              height: 48,
+                            ),
+                          ),
+
+                          Transform.translate(
+                            key: UniqueKey(),
+                            offset: const Offset(0, 0),
+                            child: Container(
+                              color: AppColors.olive,
+                              width: double.infinity,
+                              height: 48,
+                              padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  // icon
+                                  Container(
+                                    width: 24,
+                                    height: 24,
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(11),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: const Image(
+                                      image: AssetImage("assets/google.png"),
+                                    ),
+                                  ),
+                                  SizedBox(width: 12),
+                                  const Text(
+                                    'Continue with Google',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: "Roxborough",
+                                      fontWeight: FontWeight(700),
+                                      color: AppColors.light,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
         );
       },
-    );
-  }
-}
-
-class _AppTitle extends StatelessWidget {
-  const _AppTitle();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Image.asset(
-          'assets/logo.png',
-          width: 28,
-          height: 28,
-          fit: BoxFit.contain,
-        ),
-        const SizedBox(width: 8),
-        const Text(
-          'TasKu',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.2,
-          ),
-        ),
-      ],
     );
   }
 }
