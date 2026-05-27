@@ -10,8 +10,7 @@ class AuthPage extends StatefulWidget {
   State<AuthPage> createState() => _AuthPageState();
 }
 
-class _AuthPageState extends State<AuthPage>
-    with SingleTickerProviderStateMixin {
+class _AuthPageState extends State<AuthPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
@@ -76,13 +75,22 @@ class _AuthPageState extends State<AuthPage>
             height: double.infinity,
             decoration: const BoxDecoration(color: AppColors.light),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(28, 28, 64, 28),
+              padding: const EdgeInsets.all(64),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const AppTitle(),
+                  TweenAnimationBuilder<double>(
+                    tween: Tween<double>(begin: 0.0, end: 1.0),
+                    duration: Duration(milliseconds: 1000),
+                    curve: Curves.decelerate,
+                    builder:
+                        (BuildContext context, double value, Widget? child) {
+                          return Opacity(opacity: value, child: child);
+                        },
+                    child: const AppTitle(),
+                  ),
                   const SizedBox(height: 8),
                   const Text(
                     'Sign in to continue',
@@ -113,9 +121,24 @@ class _AuthPageState extends State<AuthPage>
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          Transform.translate(
-                            key: UniqueKey(),
-                            offset: const Offset(8, 8),
+                          TweenAnimationBuilder<Offset>(
+                            tween: Tween<Offset>(
+                              begin: const Offset(0, 0),
+                              end: const Offset(12, 12),
+                            ),
+                            duration: const Duration(milliseconds: 1000),
+                            curve: Curves.easeInOutCubic,
+                            builder:
+                                (
+                                  BuildContext context,
+                                  Offset value,
+                                  Widget? child,
+                                ) {
+                                  return Transform.translate(
+                                    offset: value,
+                                    child: child,
+                                  );
+                                },
                             child: Container(
                               color: AppColors.dark,
                               width: double.infinity,

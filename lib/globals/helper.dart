@@ -11,15 +11,12 @@ Future<void> loadFont(String path, String internalName) async {
       throw Exception('Font file not found.');
     }
 
-    // Read font bytes
     final Uint8List fontBytes = await file.readAsBytes();
 
-    // Create loader and register
-    final loader = ui.FontLoader(internalName); // internal name
+    final loader = ui.FontLoader(internalName);
     loader.addFont(Future.value(fontBytes.buffer.asByteData()));
-    await loader.load(); // Register to Flutter engine
+    await loader.load();
   } catch (e) {
-    // Logging only. App still runs.
     print('Error loading font: $e');
   }
 }

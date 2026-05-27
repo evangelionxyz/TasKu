@@ -9,10 +9,14 @@ class OrganizerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SectionScaffold(
-      title: 'Organizer',
-      subtitle: 'Placeholder for organizer tools and upcoming features.',
-      icon: Icons.event_note,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.lightBrown,
+        foregroundColor: AppColors.dark,
+        elevation: 0,
+        titleSpacing: 0,
+        title: const AppTitle(),
+      ),
     );
   }
 }
