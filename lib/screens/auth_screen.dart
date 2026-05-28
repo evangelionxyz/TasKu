@@ -86,8 +86,8 @@ class _AuthPageState extends State<AuthPage> {
                 children: [
                   TweenAnimationBuilder<double>(
                     tween: Tween<double>(begin: 0.0, end: 1.0),
-                    duration: Duration(milliseconds: 1000),
-                    curve: Curves.decelerate,
+                    duration: Duration(milliseconds: 2000),
+                    curve: Curves.easeInOut,
                     builder:
                         (BuildContext context, double value, Widget? child) {
                           return Opacity(
@@ -98,7 +98,9 @@ class _AuthPageState extends State<AuthPage> {
                                   offset: Offset(4, 8),
                                   child: Container(
                                     alignment: Alignment.bottomLeft,
-                                    color: theme.colors.onCard,
+                                    color: theme.isDark
+                                        ? theme.colors.onCard
+                                        : AppColors.olive,
                                     width: 42,
                                     height: 42 * value,
                                   ),
@@ -146,8 +148,8 @@ class _AuthPageState extends State<AuthPage> {
                               begin: const Offset(0, 0),
                               end: const Offset(12, 12),
                             ),
-                            duration: const Duration(milliseconds: 1000),
-                            curve: Curves.easeInOutCubic,
+                            duration: const Duration(milliseconds: 2000),
+                            curve: Curves.easeInOut,
                             builder:
                                 (
                                   BuildContext context,
@@ -160,7 +162,9 @@ class _AuthPageState extends State<AuthPage> {
                                   );
                                 },
                             child: Container(
-                              color: theme.colors.onCard,
+                              color: theme.isDark
+                                  ? theme.colors.onCard
+                                  : AppColors.dark,
                               width: double.infinity,
                               height: 48,
                             ),
@@ -188,7 +192,9 @@ class _AuthPageState extends State<AuthPage> {
                                     alignment: Alignment.center,
                                     child: Image(
                                       image: AssetImage("assets/google.png"),
-                                      color: theme.colors.onCard,
+                                      color: theme.isDark
+                                          ? theme.colors.onCard
+                                          : AppColors.light,
                                     ),
                                   ),
                                   SizedBox(width: 12),
@@ -198,7 +204,9 @@ class _AuthPageState extends State<AuthPage> {
                                       fontSize: 16,
                                       fontFamily: "Roxborough",
                                       fontWeight: FontWeight(700),
-                                      color: theme.colors.onCard,
+                                      color: theme.isDark
+                                          ? theme.colors.onCard
+                                          : AppColors.light,
                                     ),
                                   ),
                                 ],
