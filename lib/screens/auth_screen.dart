@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:taskuapp/navbar/bottom_nav.dart';
 import 'package:taskuapp/globals/globals.dart';
+import 'package:taskuapp/services/theme_service.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -69,11 +71,12 @@ class _AuthPageState extends State<AuthPage> {
           return BottomNavShell(user: user, onSignOut: _signOut);
         }
 
+        final theme = context.watch<ThemeService>();
         return Scaffold(
           body: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(color: AppColors.light),
+            decoration: BoxDecoration(color: theme.colors.bg),
             child: Padding(
               padding: const EdgeInsets.all(64),
               child: Column(
@@ -87,18 +90,34 @@ class _AuthPageState extends State<AuthPage> {
                     curve: Curves.decelerate,
                     builder:
                         (BuildContext context, double value, Widget? child) {
-                          return Opacity(opacity: value, child: child);
+                          return Opacity(
+                            opacity: value,
+                            child: Stack(
+                              children: [
+                                Transform.translate(
+                                  offset: Offset(4, 8),
+                                  child: Container(
+                                    alignment: Alignment.bottomLeft,
+                                    color: theme.colors.onCard,
+                                    width: 42,
+                                    height: 42 * value,
+                                  ),
+                                ),
+                                const AppTitle(),
+                              ],
+                            ),
+                          );
                         },
-                    child: const AppTitle(),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
+                  Text(
                     'Sign in to continue',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 28,
                       fontFamily: "Roxborough",
                       fontWeight: FontWeight(700),
+                      color: theme.colors.onCard,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -108,6 +127,7 @@ class _AuthPageState extends State<AuthPage> {
                       fontSize: 18,
                       fontFamily: "Roxborough",
                       fontWeight: FontWeight(700),
+                      color: theme.colors.onCard,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -140,7 +160,7 @@ class _AuthPageState extends State<AuthPage> {
                                   );
                                 },
                             child: Container(
-                              color: AppColors.dark,
+                              color: theme.colors.onCard,
                               width: double.infinity,
                               height: 48,
                             ),
@@ -150,10 +170,10 @@ class _AuthPageState extends State<AuthPage> {
                             key: UniqueKey(),
                             offset: const Offset(0, 0),
                             child: Container(
-                              color: AppColors.olive,
+                              color: theme.colors.accent,
                               width: double.infinity,
                               height: 48,
-                              padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
+                              padding: EdgeInsets.fromLTRB(18, 8, 8, 8),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -166,18 +186,19 @@ class _AuthPageState extends State<AuthPage> {
                                       borderRadius: BorderRadius.circular(11),
                                     ),
                                     alignment: Alignment.center,
-                                    child: const Image(
+                                    child: Image(
                                       image: AssetImage("assets/google.png"),
+                                      color: theme.colors.onCard,
                                     ),
                                   ),
                                   SizedBox(width: 12),
-                                  const Text(
+                                  Text(
                                     'Continue with Google',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: "Roxborough",
                                       fontWeight: FontWeight(700),
-                                      color: AppColors.light,
+                                      color: theme.colors.onCard,
                                     ),
                                   ),
                                 ],
