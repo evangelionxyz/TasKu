@@ -82,7 +82,10 @@ class _SecurityCardState extends State<SecurityCard>
             ],
           ),
           const SizedBox(height: 16),
-          Container(height: 1, color: theme.colors.accent.withOpacity(0.3)),
+          Container(
+            height: 1,
+            color: theme.colors.accent.withValues(alpha: 0.3),
+          ),
           const SizedBox(height: 16),
           // Motion sensor row
           Row(
@@ -99,11 +102,7 @@ class _SecurityCardState extends State<SecurityCard>
                         ),
                       ),
                     )
-                  : Icon(
-                      Icons.sensors,
-                      color: theme.colors.accent,
-                      size: 22,
-                    ),
+                  : Icon(Icons.sensors, color: theme.colors.accent, size: 22),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(

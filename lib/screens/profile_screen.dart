@@ -20,7 +20,10 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _displayName = widget.user.displayName ?? widget.user.email?.split('@').first ?? 'User';
+    _displayName =
+        widget.user.displayName ??
+        widget.user.email?.split('@').first ??
+        'User';
   }
 
   Future<void> _updateDisplayName(String newName) async {
@@ -31,7 +34,8 @@ class _ProfilePageState extends State<ProfilePage> {
         await user.updateDisplayName(newName);
         await user.reload();
         setState(() {
-          _displayName = FirebaseAuth.instance.currentUser?.displayName ?? newName;
+          _displayName =
+              FirebaseAuth.instance.currentUser?.displayName ?? newName;
         });
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -96,17 +100,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     TextField(
                       controller: controller,
                       autofocus: true,
-                      style: TextStyle(color: theme.colors.onCard, fontFamily: 'Telegraf'),
+                      style: TextStyle(
+                        color: theme.colors.onCard,
+                        fontFamily: 'Telegraf',
+                      ),
                       decoration: InputDecoration(
                         labelText: 'Display Name',
                         labelStyle: TextStyle(color: theme.colors.accent),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.zero,
-                          borderSide: BorderSide(color: theme.colors.accent, width: 2),
+                          borderSide: BorderSide(
+                            color: theme.colors.accent,
+                            width: 2,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.zero,
-                          borderSide: BorderSide(color: theme.colors.onCard, width: 2),
+                          borderSide: BorderSide(
+                            color: theme.colors.onCard,
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
@@ -118,7 +131,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           onPressed: () => Navigator.pop(ctx),
                           child: Text(
                             'CANCEL',
-                            style: TextStyle(color: theme.colors.accent, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              color: theme.colors.accent,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -130,7 +146,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.colors.accent,
                             foregroundColor: theme.colors.onDanger,
-                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                            ),
                           ),
                           child: const Text('SAVE'),
                         ),
@@ -144,7 +162,10 @@ class _ProfilePageState extends State<ProfilePage> {
         );
       },
       transitionBuilder: (ctx, anim1, anim2, child) {
-        final curve = CurvedAnimation(parent: anim1, curve: Curves.easeOutCubic);
+        final curve = CurvedAnimation(
+          parent: anim1,
+          curve: Curves.easeOutCubic,
+        );
         return SlideTransition(
           position: Tween<Offset>(
             begin: const Offset(0, 1),
@@ -228,7 +249,10 @@ class _ProfilePageState extends State<ProfilePage> {
         );
       },
       transitionBuilder: (ctx, anim1, anim2, child) {
-        final curve = CurvedAnimation(parent: anim1, curve: Curves.easeOutCubic);
+        final curve = CurvedAnimation(
+          parent: anim1,
+          curve: Curves.easeOutCubic,
+        );
         return SlideTransition(
           position: Tween<Offset>(
             begin: const Offset(0, 1),
@@ -261,12 +285,12 @@ class _ProfilePageState extends State<ProfilePage> {
             style: TextStyle(
               fontFamily: 'Telegraf',
               fontSize: 14,
-              color: theme.colors.onCard.withOpacity(0.85),
+              color: theme.colors.onCard.withValues(alpha: 0.85),
               height: 1.4,
             ),
           ),
           const SizedBox(height: 12),
-          Divider(color: theme.colors.accent.withOpacity(0.2)),
+          Divider(color: theme.colors.accent.withValues(alpha: 0.2)),
         ],
       ),
     );
@@ -281,23 +305,34 @@ class _ProfilePageState extends State<ProfilePage> {
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           title: Text(
             'Delete Account',
-            style: TextStyle(fontFamily: 'Roxborough', color: theme.colors.onCard),
+            style: TextStyle(
+              fontFamily: 'Roxborough',
+              color: theme.colors.onCard,
+            ),
           ),
           content: Text(
             'Are you sure you want to permanently delete your account? This action cannot be undone.',
-            style: TextStyle(fontFamily: 'Telegraf', color: theme.colors.onCard),
+            style: TextStyle(
+              fontFamily: 'Telegraf',
+              color: theme.colors.onCard,
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: Text('CANCEL', style: TextStyle(color: theme.colors.accent)),
+              child: Text(
+                'CANCEL',
+                style: TextStyle(color: theme.colors.accent),
+              ),
             ),
             ElevatedButton(
               onPressed: () => Navigator.pop(context, true),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.danger,
                 foregroundColor: theme.colors.onDanger,
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
               ),
               child: const Text('DELETE'),
             ),
@@ -408,7 +443,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       backgroundImage: hasPhoto ? NetworkImage(photoUrl) : null,
                       child: !hasPhoto
                           ? Text(
-                              _displayName.isNotEmpty ? _displayName[0].toUpperCase() : 'U',
+                              _displayName.isNotEmpty
+                                  ? _displayName[0].toUpperCase()
+                                  : 'U',
                               style: TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
@@ -452,7 +489,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: 'Telegraf',
                               fontSize: 13,
-                              color: theme.colors.onCard.withOpacity(0.6),
+                              color: theme.colors.onCard.withValues(alpha: 0.6),
                             ),
                           ),
                         ],
@@ -491,7 +528,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 title: 'Help Center',
                 onTap: () => _showHelpCenter(theme),
               ),
-              Divider(height: 1, color: theme.colors.accent.withOpacity(0.2)),
+              Divider(
+                height: 1,
+                color: theme.colors.accent.withValues(alpha: 0.2),
+              ),
               _buildTappableRow(
                 theme: theme,
                 icon: Icons.delete_outline,
@@ -525,7 +565,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.logout, color: theme.colors.onDanger, size: 20),
+                        Icon(
+                          Icons.logout,
+                          color: theme.colors.onDanger,
+                          size: 20,
+                        ),
                         const SizedBox(width: 8),
                         Text(
                           'SIGN OUT',
@@ -565,7 +609,10 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildSettingsCard(ThemeService theme, {required List<Widget> children}) {
+  Widget _buildSettingsCard(
+    ThemeService theme, {
+    required List<Widget> children,
+  }) {
     return Stack(
       children: [
         Positioned(
@@ -635,7 +682,11 @@ class _ProfilePageState extends State<ProfilePage> {
           color: titleColor ?? theme.colors.onCard,
         ),
       ),
-      trailing: Icon(Icons.chevron_right, color: titleColor ?? theme.colors.accent, size: 20),
+      trailing: Icon(
+        Icons.chevron_right,
+        color: titleColor ?? theme.colors.accent,
+        size: 20,
+      ),
       onTap: onTap,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
     );

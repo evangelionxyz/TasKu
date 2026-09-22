@@ -44,3 +44,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 google-services.json
+# Widget Preview related
+.widget_preview/
+firebase.json
+lib/firebase_options.dart

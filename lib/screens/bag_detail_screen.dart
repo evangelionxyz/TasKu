@@ -129,7 +129,7 @@ class _MapWidget extends StatelessWidget {
                             width: 36,
                             height: 36,
                             decoration: BoxDecoration(
-                              color: theme.colors.accent.withOpacity(0.2),
+                              color: theme.colors.accent.withValues(alpha: 0.2),
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -210,7 +210,7 @@ class _RouteEntryTile extends StatelessWidget {
               Container(
                 width: 1,
                 height: 36,
-                color: theme.colors.accent.withOpacity(0.4),
+                color: theme.colors.accent.withValues(alpha: 0.4),
               ),
             ],
           ),

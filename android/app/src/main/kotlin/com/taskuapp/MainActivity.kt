@@ -1,4 +1,4 @@
-package com.taskuapp
+package offside.taskuappapp
 
 import io.flutter.embedding.android.FlutterActivity
 

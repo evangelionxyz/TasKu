@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.tasku"
+    namespace = "offside.taskuapp"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -19,11 +19,11 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.tasku"
+        applicationId = "offside.taskuapp"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = flutter.compileSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }

@@ -13,29 +13,26 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-
   @override
   void initState() {
     super.initState();
+    _initGoogleSignIn();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  Future<void> _initGoogleSignIn() async {
+    try {
+      await GoogleSignIn.instance.initialize();
+    } catch (_) {}
   }
 
   Future<void> _signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (!mounted || googleUser == null) {
-        return;
-      }
+      await GoogleSignIn.instance.initialize();
+      final GoogleSignInAccount googleUser = await GoogleSignIn.instance
+          .authenticate();
 
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
       final OAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
@@ -52,7 +49,7 @@ class _AuthPageState extends State<AuthPage> {
 
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
-    await _googleSignIn.signOut();
+    await GoogleSignIn.instance.signOut();
   }
 
   @override

@@ -94,7 +94,7 @@ class _BottomNavShellState extends State<BottomNavShell> {
                   borderRadius: BorderRadius.circular(32),
                   boxShadow: [
                     BoxShadow(
-                      color: theme.colors.accent.withOpacity(0.3),
+                      color: theme.colors.accent.withValues(alpha: 0.3),
                       blurRadius: 16,
                       offset: const Offset(4, 8),
                     ),
@@ -116,7 +116,7 @@ class _BottomNavShellState extends State<BottomNavShell> {
                           borderRadius: BorderRadius.circular(24),
                           boxShadow: [
                             BoxShadow(
-                              color: theme.colors.accent.withOpacity(0.2),
+                              color: theme.colors.accent.withValues(alpha: 0.2),
                               blurRadius: 12,
                               offset: const Offset(1, 1),
                             ),
